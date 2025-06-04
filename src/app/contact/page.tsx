@@ -11,17 +11,20 @@ export default function Contact() {
     {
       icon: <FaEnvelope className="w-6 h-6" />,
       title: 'Email',
-      value: 'braxtonfails86@gmail.com'
+      value: 'braxtonfails86@gmail.com',
+      href: 'mailto:braxtonfails86@gmail.com'
     },
     {
       icon: <FaPhone className="w-6 h-6" />,
       title: 'Phone',
-      value: '(903) 975-4258'
+      value: '(903) 975-4258',
+      href: 'tel:+19039754258'
     },
     {
       icon: <FaMapMarkerAlt className="w-6 h-6" />,
       title: 'Location',
-      value: 'Nacogdoches, TX, United States'
+      value: 'Serving Nacogdoches, Winnsboro, and surrounding areas',
+      href: null
     }
   ];
 
@@ -42,7 +45,7 @@ export default function Contact() {
               transition={{ duration: 0.5 }}
               className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4"
             >
-              Let's Create Something Amazing
+              Let&apos;s Create Something Amazing
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -51,7 +54,7 @@ export default function Contact() {
               className="text-xl text-gray-300 max-w-3xl mx-auto"
             >
               Whether you need a custom website, web application, or digital solution, 
-              I'm here to help bring your vision to life.
+              I&apos;m here to help bring your vision to life.
             </motion.p>
           </div>
 
@@ -63,7 +66,7 @@ export default function Contact() {
               transition={{ duration: 0.5 }}
               className="bg-[#112240] rounded-lg p-6"
             >
-              <h2 className="text-3xl font-bold text-white mb-6">Start Your Project</h2>
+              <h2 className="text-3xl font-bold text-white mb-6">Let&apos;s Build Something Great</h2>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-1">
@@ -73,7 +76,8 @@ export default function Contact() {
                     type="text"
                     id="name"
                     name="name"
-                    className="w-full px-4 py-2 rounded-md bg-[#0a192f] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="John Smith"
+                    className="w-full px-4 py-2 rounded-md bg-[#0a192f] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-500"
                     required
                   />
                 </div>
@@ -85,7 +89,8 @@ export default function Contact() {
                     type="email"
                     id="email"
                     name="email"
-                    className="w-full px-4 py-2 rounded-md bg-[#0a192f] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="john@example.com"
+                    className="w-full px-4 py-2 rounded-md bg-[#0a192f] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-500"
                     required
                   />
                 </div>
@@ -97,15 +102,16 @@ export default function Contact() {
                     id="message"
                     name="message"
                     rows={4}
-                    className="w-full px-4 py-2 rounded-md bg-[#0a192f] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="Tell me what you're looking for — a new site, a redesign, or updates?"
+                    className="w-full px-4 py-2 rounded-md bg-[#0a192f] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-500"
                     required
                   ></textarea>
                 </div>
                 <button
                   type="submit"
-                  className="w-full bg-blue-600 text-white rounded-md px-6 py-3 font-semibold hover:bg-blue-700 transition-colors duration-300"
+                  className="w-full bg-blue-600 text-white rounded-md px-6 py-3 font-semibold hover:bg-blue-700 transition-colors duration-300 flex items-center justify-center space-x-2"
                 >
-                  Send Message
+                  <span>🚀 Let&apos;s Build It</span>
                 </button>
               </form>
             </motion.div>
@@ -131,7 +137,16 @@ export default function Contact() {
                       <div className="text-blue-400">{method.icon}</div>
                       <div>
                         <h3 className="text-lg font-semibold text-white">{method.title}</h3>
-                        <p className="text-gray-300">{method.value}</p>
+                        {method.href ? (
+                          <a 
+                            href={method.href} 
+                            className="text-gray-300 hover:text-blue-400 transition-colors duration-300"
+                          >
+                            {method.value}
+                          </a>
+                        ) : (
+                          <p className="text-gray-300">{method.value}</p>
+                        )}
                       </div>
                     </motion.div>
                   ))}
@@ -162,7 +177,7 @@ export default function Contact() {
                   href="/pricing"
                   className="inline-block bg-blue-600 text-white rounded-md px-6 py-3 font-semibold hover:bg-blue-700 transition-colors duration-300"
                 >
-                  View Pricing Options
+                  Get Your Free Quote
                 </a>
               </motion.div>
             </div>

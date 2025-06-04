@@ -1,5 +1,3 @@
-'use client';
-
 import { Metadata } from 'next'
 import Link from 'next/link'
 import ImageSlideshow from '@/components/ImageSlideshow'
@@ -11,9 +9,9 @@ export const metadata: Metadata = {
 
 export default function SprayFoamPage() {
   const projectImages = [
-    '/portfolio/sprayfoam.png',
-    '/SprayFoamPhoto2.png',
-    '/SprayFoamPhoto3.png'
+    '/portfolio/sprayfoam/sprayfoam.png',
+    '/portfolio/sprayfoam/SprayFoamPhoto2.png',
+    '/portfolio/sprayfoam/SprayFoamPhoto3.png'
   ];
 
   return (

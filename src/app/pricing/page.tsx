@@ -162,7 +162,7 @@ export default function PricingPage() {
           >
             <h2 className="text-2xl font-bold text-white mb-4">Not Sure Which Plan to Choose?</h2>
             <p className="text-gray-300 mb-8">
-              Let's discuss your project requirements and find the perfect solution for your business
+              Let&apos;s discuss your project requirements and find the perfect solution for your business
             </p>
             <a
               href="/contact"

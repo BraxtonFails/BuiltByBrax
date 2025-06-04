@@ -22,15 +22,15 @@ type Slide = ImageSlide | TemplateSlide;
 
 const baseSlides: Slide[] = [
   {
-    image: '/portfolio/sprayfoam.png',
+    image: '/portfolio/sprayfoam/sprayfoam.png',
     type: 'image'
   },
   {
-    image: '/SprayFoamPhoto2.png',
+    image: '/portfolio/sprayfoam/SprayFoamPhoto2.png',
     type: 'image'
   },
   {
-    image: '/SprayFoamPhoto3.png',
+    image: '/portfolio/sprayfoam/SprayFoamPhoto3.png',
     type: 'image'
   },
   {
