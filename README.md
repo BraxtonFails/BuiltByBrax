@@ -1,6 +1,40 @@
-# BuiltByBrax - Professional Web Development Services
+# BuiltByBrax Portfolio Website
 
-This is the official website for BuiltByBrax, showcasing web development services and portfolio.
+This is the source code for my personal portfolio website, showcasing my web development projects and services.
+
+## Copyright Notice
+
+© 2024 BuiltByBrax (Braxton Fails). All Rights Reserved.
+
+**This repository is for viewing purposes only.**
+
+This code is proprietary and is NOT open-source. While the code is visible for portfolio and educational purposes, no one is permitted to:
+- Use this code commercially
+- Modify or distribute this code
+- Copy or replicate features or design elements
+- Deploy or host this code
+
+## About
+
+BuiltByBrax is a custom web development service offering modern, hand-coded websites with superior performance and beautiful design. Specializing in React, Next.js, and full-stack development.
+
+## Tech Stack
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- Framer Motion
+
+## Contact
+
+For business inquiries or questions:
+- Email: braxtonfails86@gmail.com
+- Portfolio: [builtbybrax.com](https://builtbybrax.com)
+
+## Legal
+
+Unauthorized use, reproduction, or distribution of this code or any portion of it may result in severe civil and criminal penalties, and will be prosecuted to the maximum extent possible under law.
 
 ## Technologies Used
 
@@ -53,7 +87,3 @@ This website can be deployed on Vercel with zero configuration:
 - Modify content in `src/app/page.tsx`
 - Update contact information in `src/components/Footer.tsx`
 - Add portfolio images in `/public/portfolio/`
-
-## License
-
-All rights reserved © BuiltByBrax
