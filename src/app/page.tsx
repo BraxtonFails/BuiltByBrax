@@ -7,6 +7,9 @@ import Image from 'next/image'
 import BackgroundSlideshow from '@/components/BackgroundSlideshow'
 import ImageSlideshow from '@/components/ImageSlideshow'
 import Link from 'next/link'
+import Navigation from '@/components/Navigation'
+import Footer from '@/components/Footer'
+import { FaCode, FaServer, FaMobileAlt, FaRocket } from 'react-icons/fa'
 
 const cardVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -227,8 +230,8 @@ export default function Home() {
                   '/portfolio/sprayfoam/SprayFoamPhoto3.png'
                 ],
                 tags: ['Next.js', 'TypeScript', 'Tailwind CSS'],
-                link: '/sprayfoam',
-                external: false
+                link: 'https://sprayfoamsinsulation.com',
+                external: true
               },
               {
                 title: 'Project 2',
@@ -249,53 +252,53 @@ export default function Home() {
             ].map((project, index) => (
               <motion.div
                 key={project.title}
+                className="bg-white dark:bg-[#1E293B] rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-xl"
                 variants={cardVariants}
-                className="relative group"
+                custom={index}
+                whileHover={{
+                  y: -5,
+                  transition: { duration: 0.2 }
+                }}
               >
-                <Link href={project.link} target={project.external ? "_blank" : undefined}>
-                  <div className="relative rounded-lg overflow-hidden shadow-lg bg-white dark:bg-gray-800 transition-transform duration-300 group-hover:scale-[1.02]">
-                    <div className="relative h-48 w-full">
-                      {project.images.length > 1 ? (
-                        <div className="h-full">
-                          <ImageSlideshow 
-                            images={project.images} 
-                            interval={3000}
-                            className="rounded-t-lg"
-                          />
-                        </div>
-                      ) : (
-                        <Image
-                          src={project.images[0]}
-                          alt={project.title}
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        />
-                      )}
-                    </div>
-                    <div className="p-6">
-                      <div className="flex items-center justify-between mb-2">
-                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{project.title}</h3>
-                        {project.external && (
-                          <svg className="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                          </svg>
-                        )}
-                      </div>
-                      <p className="text-gray-600 dark:text-gray-300 mb-4">{project.description}</p>
-                      <div className="flex flex-wrap gap-2">
-                        {project.tags.map(tag => (
-                          <span
-                            key={tag}
-                            className="px-3 py-1 text-sm text-blue-400 bg-black/30 rounded-full"
-                          >
-                            {tag}
-                          </span>
-                        ))}
+                <Link href="/portfolio" className="block">
+                  <div className="relative h-48 overflow-hidden group">
+                    <div className="absolute inset-0 w-full h-full">
+                      <div className="w-full h-full transform transition-transform duration-300 group-hover:scale-110">
+                        <ImageSlideshow images={project.images} />
                       </div>
                     </div>
                   </div>
                 </Link>
+                <div className="p-8">
+                  <h3 className="text-2xl font-bold text-white mb-4">
+                    <a 
+                      href={project.link}
+                      target={project.external ? "_blank" : "_self"}
+                      rel={project.external ? "noopener noreferrer" : ""}
+                      className="hover:text-blue-400 transition-colors flex items-center group"
+                    >
+                      {project.title}
+                      {project.external && (
+                        <svg className="w-5 h-5 ml-2 transform transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      )}
+                    </a>
+                  </h3>
+                  <Link href="/portfolio" className="block">
+                    <p className="text-gray-300 mb-6 hover:text-gray-100 transition-colors">{project.description}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {project.tags.map(tag => (
+                        <span
+                          key={tag}
+                          className="px-3 py-1 text-sm text-blue-400 bg-blue-400/10 rounded-full transition-colors hover:bg-blue-400/20"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </Link>
+                </div>
               </motion.div>
             ))}
           </div>

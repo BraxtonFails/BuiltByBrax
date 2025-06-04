@@ -20,13 +20,10 @@ export default function ImageSlideshow({ images, interval = 5000, className = ""
   useEffect(() => {
     if (!isClient) return;
     
-    console.log('Starting slideshow with images:', images);
     const timer = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => {
-        const nextIndex = prevIndex === images.length - 1 ? 0 : prevIndex + 1;
-        console.log('Changing image from', prevIndex, 'to', nextIndex);
-        return nextIndex;
-      });
+      setCurrentImageIndex((prevIndex) => (
+        prevIndex === images.length - 1 ? 0 : prevIndex + 1
+      ));
     }, interval);
 
     return () => clearInterval(timer);
@@ -52,7 +49,7 @@ export default function ImageSlideshow({ images, interval = 5000, className = ""
       {images.map((image, index) => (
         <div
           key={image}
-          className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+          className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${
             index === currentImageIndex ? 'opacity-100' : 'opacity-0'
           }`}
         >
