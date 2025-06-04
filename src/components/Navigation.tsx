@@ -5,7 +5,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import ThemeToggle from './ThemeToggle';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,47 +28,43 @@ const Navigation = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <Link href="/" className="flex items-center group" onMouseEnter={() => setRotateClockwise(!rotateClockwise)}>
+            <Link href="/" className="flex items-center group">
               <div className="relative w-8 h-8 overflow-hidden">
                 <Image
                   src="/BuiltByBraxLogoNoTextNoBackground.PNG"
                   alt="BuiltByBrax Logo"
                   width={32}
                   height={32}
-                  className={`h-full w-full transition-all duration-500 group-hover:brightness-125 ${
-                    rotateClockwise ? 'group-hover:rotate-[360deg]' : 'group-hover:rotate-[-360deg]'
-                  }`}
+                  className="h-full w-full transition-all duration-500 group-hover:rotate-[360deg] group-hover:brightness-125"
                 />
               </div>
               <div className="ml-3">
-                <span className="text-lg font-semibold text-slate-800 dark:text-white">
+                <span className="text-lg font-semibold text-white">
                   BuiltByBrax
                 </span>
-                <span className="block text-xs text-blue-500 dark:text-slate-400">Web Development</span>
+                <span className="block text-xs text-gray-400">Web Development</span>
               </div>
             </Link>
           </motion.div>
-          
+
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <div className="flex items-baseline space-x-8">
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-blue-500 dark:hover:text-white transition-all duration-300 px-3 py-1 rounded-md hover:bg-slate-50 dark:hover:bg-slate-800"
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </div>
+            {navItems.map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                className="text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 hover:shadow-[0_0_15px_rgba(59,130,246,0.5)] px-3 py-1 rounded-md"
+              >
+                {item.name}
+              </Link>
+            ))}
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center space-x-4">
+          <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-slate-600 dark:text-slate-400 hover:text-blue-500 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 transition-all duration-300 focus:outline-none"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-300 hover:text-white transition-all duration-300 focus:outline-none"
             >
               {isOpen ? (
                 <XMarkIcon className="block h-6 w-6" />
@@ -82,28 +77,19 @@ const Navigation = () => {
       </div>
 
       {/* Mobile Navigation */}
-      <motion.div
-        className="md:hidden"
-        initial="closed"
-        animate={isOpen ? "open" : "closed"}
-        variants={{
-          open: { opacity: 1, height: "auto" },
-          closed: { opacity: 0, height: 0 }
-        }}
-      >
-        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white dark:bg-[#020817] border-t border-slate-200 dark:border-slate-800 shadow-lg">
+      <div className={`md:hidden ${isOpen ? 'block' : 'hidden'}`}>
+        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-[#020817]/90 backdrop-blur-sm">
           {navItems.map((item) => (
             <Link
               key={item.name}
               href={item.href}
-              className="block px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-blue-500 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md transition-all duration-300"
-              onClick={() => setIsOpen(false)}
+              className="block text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
             >
               {item.name}
             </Link>
           ))}
         </div>
-      </motion.div>
+      </div>
     </nav>
   );
 };
