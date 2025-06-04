@@ -8,12 +8,16 @@ import { FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
 import emailjs from '@emailjs/browser';
 
 // EmailJS configuration from environment variables
-const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '';
-const TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '';
-const PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || '';
+const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 'builtbybrax';
+const TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 'template_ubw6gqw';
+const PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || '-5MxkDW-aW-wBUkXi';
 
 // Initialize EmailJS once
-emailjs.init(PUBLIC_KEY);
+try {
+  emailjs.init(PUBLIC_KEY);
+} catch (error) {
+  console.error('Failed to initialize EmailJS:', error);
+}
 
 export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -60,7 +64,8 @@ export default function Contact() {
       const result = await emailjs.send(
         SERVICE_ID,
         TEMPLATE_ID,
-        formData
+        formData,
+        PUBLIC_KEY
       );
 
       console.log('Email sent successfully:', result);
