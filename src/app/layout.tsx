@@ -19,6 +19,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning className="dark">
+      <head>
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            try {
+              if (localStorage.theme === 'light') {
+                document.documentElement.classList.remove('dark');
+              } else {
+                document.documentElement.classList.add('dark');
+              }
+            } catch (_) {}
+          `,
+        }} />
+      </head>
       <body className={`${inter.className} bg-[#020817] text-white`}>
         <ThemeProvider>
           <Navigation />
