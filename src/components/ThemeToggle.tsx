@@ -1,6 +1,6 @@
 'use client';
 
-import { useTheme } from '@/context/ThemeContext';
+import { useTheme } from '../context/ThemeContext';
 import { SunIcon, MoonIcon, ComputerDesktopIcon } from '@heroicons/react/24/outline';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
@@ -18,9 +18,9 @@ export default function ThemeToggle() {
   }
 
   return (
-    <div className="relative inline-flex items-center rounded-lg bg-gray-100 dark:bg-[#112240] p-0.5">
+    <div className="relative inline-flex items-center rounded-lg bg-slate-100 dark:bg-[#112240] p-0.5 shadow-sm">
       <motion.div
-        className="absolute h-full w-9 rounded-md bg-white dark:bg-[#1a2942]"
+        className="absolute h-full w-9 rounded-md bg-white dark:bg-[#1a2942] shadow-sm"
         initial={false}
         animate={{ 
           x: theme === 'light' ? 0 : theme === 'dark' ? 36 : 72 
@@ -32,8 +32,8 @@ export default function ThemeToggle() {
         onClick={() => setTheme('light')}
         className={`relative z-10 p-2 rounded-md transition-colors duration-200 ${
           theme === 'light'
-            ? 'text-yellow-500'
-            : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-200'
+            ? 'text-blue-500'
+            : 'text-slate-400 hover:text-blue-500 dark:hover:text-slate-200'
         }`}
         aria-label="Light mode"
       >
@@ -45,7 +45,7 @@ export default function ThemeToggle() {
         className={`relative z-10 p-2 rounded-md transition-colors duration-200 ${
           theme === 'dark'
             ? 'text-blue-500'
-            : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-200'
+            : 'text-slate-400 hover:text-blue-500 dark:hover:text-slate-200'
         }`}
         aria-label="Dark mode"
       >
@@ -56,8 +56,8 @@ export default function ThemeToggle() {
         onClick={() => setTheme('system')}
         className={`relative z-10 p-2 rounded-md transition-colors duration-200 ${
           theme === 'system'
-            ? 'text-purple-500'
-            : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-200'
+            ? 'text-blue-500'
+            : 'text-slate-400 hover:text-blue-500 dark:hover:text-slate-200'
         }`}
         aria-label="System theme"
       >

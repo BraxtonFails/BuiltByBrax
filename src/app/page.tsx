@@ -99,10 +99,33 @@ export default function Home() {
     }
   ]
 
+  const services = [
+    {
+      title: 'Modern Development',
+      description: 'Using the latest technologies like React, Next.js, and TypeScript to build fast, scalable applications that grow with your business.',
+      icon: '🚀'
+    },
+    {
+      title: 'Performance First',
+      description: 'Hand-coded solutions that achieve perfect Google PageSpeed scores, ensuring lightning-fast load times and optimal user experience.',
+      icon: '⚡'
+    },
+    {
+      title: 'Full Stack Solutions',
+      description: 'End-to-end development from database design to beautiful front-end interfaces, creating seamless and powerful applications.',
+      icon: '💻'
+    },
+    {
+      title: 'AI Integration',
+      description: 'Leveraging cutting-edge AI technologies to create smarter, more responsive applications that provide enhanced user experiences.',
+      icon: '🤖'
+    },
+  ]
+
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative min-h-screen pt-20 flex items-center justify-center bg-gray-50 dark:bg-[#020817]">
+      <section className="relative min-h-screen pt-20 flex items-center justify-center bg-white dark:bg-[#020817]">
         <BackgroundSlideshow />
         
         <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
@@ -115,7 +138,7 @@ export default function Home() {
             <p className="text-xl text-blue-600 dark:text-blue-400 font-medium mb-4">Custom Designs, Custom Coded</p>
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-4 leading-tight tracking-tight">
               Helping Small Businesses
-              <span className="block mt-2 bg-gradient-to-r from-blue-600 to-blue-400 dark:from-blue-400 dark:to-blue-300 text-transparent bg-clip-text transform hover:scale-105 transition-transform duration-300">Thrive Online</span>
+              <span className="block mt-2 bg-gradient-to-r from-blue-600 to-blue-400 dark:from-blue-400 dark:to-blue-300 text-transparent bg-clip-text">Thrive Online</span>
             </h1>
             <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
               Affordable, professional web solutions crafted for your local business. Stand out online and reach more customers with a website that works.
@@ -160,34 +183,15 @@ export default function Home() {
               Every line of code is written by hand to ensure the best performance and make Google happy.
             </p>
           </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              {
-                title: 'Modern Development',
-                description: 'Using the latest technologies like React, Next.js, and TypeScript to build fast, scalable applications that grow with your business.',
-                icon: '🚀'
-              },
-              {
-                title: 'Performance First',
-                description: 'Hand-coded solutions that achieve perfect Google PageSpeed scores, ensuring lightning-fast load times and optimal user experience.',
-                icon: '⚡'
-              },
-              {
-                title: 'Full Stack Solutions',
-                description: 'End-to-end development from database design to beautiful front-end interfaces, creating seamless and powerful applications.',
-                icon: '💻'
-              },
-              {
-                title: 'AI Integration',
-                description: 'Leveraging cutting-edge AI technologies to create smarter, more responsive applications that provide enhanced user experiences.',
-                icon: '🤖'
-              },
-            ].map((service, index) => (
+            {services.map((service, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="p-8 rounded-lg bg-gray-50 dark:bg-[#112240] hover:transform hover:-translate-y-2 transition-all duration-300 hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] group"
               >
                 <div className="text-4xl mb-6 group-hover:scale-110 transition-transform duration-300">{service.icon}</div>

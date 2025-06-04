@@ -154,7 +154,6 @@ export default function BackgroundSlideshow() {
   }, []);
 
   const renderTile = (slide: Slide, index: number, keyPrefix: string) => {
-    console.log('Rendering slide:', slide);
     return (
       <div
         key={`${keyPrefix}-${index}`}
@@ -167,7 +166,7 @@ export default function BackgroundSlideshow() {
                 src={slide.image}
                 alt={`Slide ${index + 1}`}
                 fill
-                className="object-cover brightness-75"
+                className="object-cover"
                 priority={index < 4}
                 onError={(e) => {
                   console.error('Error loading image:', slide.image);
@@ -175,7 +174,7 @@ export default function BackgroundSlideshow() {
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
             </div>
-            <div className="absolute inset-0 bg-black/30 dark:bg-black/50" />
+            <div className="absolute inset-0 bg-black/30" />
           </>
         ) : (
           <div className="w-full h-full min-h-[200px] bg-gray-100 dark:bg-gray-900 flex items-center justify-center">
@@ -188,16 +187,16 @@ export default function BackgroundSlideshow() {
 
   if (!isClient) {
     return (
-      <div className="absolute top-20 bottom-3 left-0 right-0 overflow-hidden bg-gray-800 dark:bg-gray-950 transition-colors duration-200">
-        <div className="absolute inset-0 bg-white/40 dark:bg-black/60 backdrop-blur-[2px] transition-colors duration-200" />
+      <div className="absolute top-20 bottom-3 left-0 right-0 overflow-hidden bg-white dark:bg-[#020817]">
+        <div className="absolute inset-0 bg-white/40 dark:bg-black/60 backdrop-blur-[2px]" />
       </div>
     );
   }
 
   return (
-    <div className="absolute top-20 bottom-3 left-0 right-0 overflow-hidden bg-gray-800 dark:bg-gray-950 transition-colors duration-200">
+    <div className="absolute top-20 bottom-3 left-0 right-0 overflow-hidden bg-white dark:bg-[#020817]">
       <motion.div 
-        className="grid grid-cols-8 gap-4 absolute inset-3 h-[calc(100%+1.5rem)]"
+        className="grid grid-cols-8 gap-4 absolute inset-3"
         style={{ 
           width: '200%',
           gridTemplateRows: 'repeat(3, 1fr)',
@@ -217,7 +216,7 @@ export default function BackgroundSlideshow() {
         {slides.firstHalf.map((slide, index) => renderTile(slide, index, 'tile'))}
         {slides.secondHalf.map((slide, index) => renderTile(slide, index, 'tile-second'))}
       </motion.div>
-      <div className="absolute inset-0 bg-white/40 dark:bg-black/60 backdrop-blur-[2px] transition-colors duration-200" />
+      <div className="absolute inset-0 bg-white/90 dark:bg-[#020817]/90 backdrop-blur-[1px]" />
     </div>
   );
 } 
