@@ -1,5 +1,8 @@
+'use client';
+
 import { Metadata } from 'next'
 import Link from 'next/link'
+import ImageSlideshow from '@/components/ImageSlideshow'
 
 export const metadata: Metadata = {
   title: 'Spray Foam Insulation - Portfolio Project',
@@ -7,6 +10,12 @@ export const metadata: Metadata = {
 }
 
 export default function SprayFoamPage() {
+  const projectImages = [
+    '/portfolio/sprayfoam.png',
+    '/SprayFoamPhoto2.png',
+    '/SprayFoamPhoto3.png'
+  ];
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 py-12">
@@ -20,6 +29,10 @@ export default function SprayFoamPage() {
           <h1 className="text-4xl font-bold mb-4">Spray Foam Insulation Website</h1>
           <p className="text-gray-600 mb-8">A modern, responsive website built for a spray foam insulation company.</p>
           
+          <div className="mb-8">
+            <ImageSlideshow images={projectImages} />
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
             <div>
               <h2 className="text-2xl font-semibold mb-4">Project Overview</h2>

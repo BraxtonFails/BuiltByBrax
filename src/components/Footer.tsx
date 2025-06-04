@@ -50,7 +50,7 @@ const Footer = () => {
             <ul className="space-y-2 text-gray-400">
               <li>Email: braxtonfails86@gmail.com</li>
               <li>Phone: (903) 975-4258</li>
-              <li>Location: United States</li>
+              <li>Location: Nacogdoches, TX, United States</li>
             </ul>
             <div className="mt-4 flex space-x-4">
               <a href="https://github.com/BraxtonFails" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">

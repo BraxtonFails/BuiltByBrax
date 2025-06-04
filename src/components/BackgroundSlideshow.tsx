@@ -1,15 +1,42 @@
-import { useEffect, useRef } from 'react';
-import { motion, useAnimationControls } from 'framer-motion';
+'use client';
 
-const baseSlides = [
+import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+
+type ImageSlide = {
+  type: 'image';
+  image: string;
+};
+
+type TemplateSlide = {
+  type: 'template';
+  icon: React.ReactElement<{
+    children: React.ReactElement<{
+      d: string;
+    }>;
+  }>;
+};
+
+type Slide = ImageSlide | TemplateSlide;
+
+const baseSlides: Slide[] = [
   {
     image: '/portfolio/sprayfoam.png',
     type: 'image'
   },
   {
+    image: '/SprayFoamPhoto2.png',
+    type: 'image'
+  },
+  {
+    image: '/SprayFoamPhoto3.png',
+    type: 'image'
+  },
+  {
     type: 'template',
     icon: (
-      <svg className="w-8 h-8 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg className="w-8 h-8 text-gray-600 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
       </svg>
     )
@@ -17,7 +44,7 @@ const baseSlides = [
   {
     type: 'template',
     icon: (
-      <svg className="w-8 h-8 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg className="w-8 h-8 text-gray-600 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
       </svg>
     )
@@ -25,7 +52,7 @@ const baseSlides = [
   {
     type: 'template',
     icon: (
-      <svg className="w-8 h-8 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg className="w-8 h-8 text-gray-600 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
       </svg>
     )
@@ -33,7 +60,7 @@ const baseSlides = [
   {
     type: 'template',
     icon: (
-      <svg className="w-8 h-8 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg className="w-8 h-8 text-gray-600 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
       </svg>
     )
@@ -41,7 +68,7 @@ const baseSlides = [
   {
     type: 'template',
     icon: (
-      <svg className="w-8 h-8 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg className="w-8 h-8 text-gray-600 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
       </svg>
     )
@@ -49,7 +76,7 @@ const baseSlides = [
   {
     type: 'template',
     icon: (
-      <svg className="w-8 h-8 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg className="w-8 h-8 text-gray-600 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
       </svg>
     )
@@ -66,35 +93,68 @@ const shuffleArray = <T,>(array: T[]): T[] => {
   return shuffled;
 };
 
-// Generate shuffled slides for both halves
-const generateShuffledSlides = (count: number) => {
-  const slides = [];
-  for (let i = 0; i < count; i++) {
-    slides.push(...shuffleArray(baseSlides));
+// Check if a slide is too close to its duplicates
+const isDuplicateTooClose = (
+  slides: Slide[],
+  currentIndex: number,
+  slide: Slide,
+  minDistance: number
+): boolean => {
+  const start = Math.max(0, currentIndex - minDistance);
+  const end = Math.min(slides.length, currentIndex + minDistance);
+  
+  for (let i = start; i < end; i++) {
+    if (i === currentIndex) continue;
+    const compareSlide = slides[i];
+    if (!compareSlide) continue;
+
+    if (slide.type === 'image' && compareSlide.type === 'image') {
+      if (slide.image === compareSlide.image) return true;
+    } else if (slide.type === 'template' && compareSlide.type === 'template') {
+      const currentPath = slide.icon.props.children.props.d;
+      const comparePath = compareSlide.icon.props.children.props.d;
+      if (currentPath === comparePath) return true;
+    }
   }
-  return slides.slice(0, 24); // Limit to exactly 24 tiles
+  return false;
+};
+
+// Generate shuffled slides with spacing constraint
+const generateShuffledSlides = (count: number): Slide[] => {
+  const slides: Slide[] = [];
+  const minDistance = 3; // Minimum distance between duplicates
+  
+  while (slides.length < 24) { // Target length
+    const shuffled = shuffleArray(baseSlides);
+    
+    for (const slide of shuffled) {
+      if (!isDuplicateTooClose(slides, slides.length, slide, minDistance)) {
+        slides.push(slide);
+        if (slides.length >= 24) break;
+      }
+    }
+  }
+  
+  return slides;
 };
 
 export default function BackgroundSlideshow() {
-  const controls = useAnimationControls();
-  const firstHalfSlides = useRef(generateShuffledSlides(6));
-  const secondHalfSlides = useRef(generateShuffledSlides(6));
+  const [isClient, setIsClient] = useState(false);
+  const [slides, setSlides] = useState<{
+    firstHalf: Slide[];
+    secondHalf: Slide[];
+  }>({ firstHalf: [], secondHalf: [] });
 
   useEffect(() => {
-    const animate = async () => {
-      await controls.start({
-        x: [0, '-50%'],
-        transition: {
-          duration: 180,
-          ease: "linear",
-          repeat: Infinity,
-        }
-      });
-    };
-    animate();
-  }, [controls]);
+    setIsClient(true);
+    setSlides({
+      firstHalf: generateShuffledSlides(6),
+      secondHalf: generateShuffledSlides(6)
+    });
+  }, []);
 
-  const renderTile = (slide: typeof baseSlides[0], index: number, keyPrefix: string) => {
+  const renderTile = (slide: Slide, index: number, keyPrefix: string) => {
+    console.log('Rendering slide:', slide);
     return (
       <div
         key={`${keyPrefix}-${index}`}
@@ -102,15 +162,23 @@ export default function BackgroundSlideshow() {
       >
         {slide.type === 'image' ? (
           <>
-            <img
-              src={slide.image}
-              alt={`Slide ${index + 1}`}
-              className="w-full h-full object-cover brightness-75"
-            />
-            <div className="absolute inset-0 bg-black/30" />
+            <div className="relative w-full h-full min-h-[200px]">
+              <Image
+                src={slide.image}
+                alt={`Slide ${index + 1}`}
+                fill
+                className="object-cover brightness-75"
+                priority={index < 4}
+                onError={(e) => {
+                  console.error('Error loading image:', slide.image);
+                }}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+            </div>
+            <div className="absolute inset-0 bg-black/30 dark:bg-black/50" />
           </>
         ) : (
-          <div className="w-full h-full bg-gray-900 flex items-center justify-center">
+          <div className="w-full h-full min-h-[200px] bg-gray-100 dark:bg-gray-900 flex items-center justify-center">
             {slide.icon}
           </div>
         )}
@@ -118,23 +186,38 @@ export default function BackgroundSlideshow() {
     );
   };
 
+  if (!isClient) {
+    return (
+      <div className="absolute top-20 bottom-3 left-0 right-0 overflow-hidden bg-gray-800 dark:bg-gray-950 transition-colors duration-200">
+        <div className="absolute inset-0 bg-white/40 dark:bg-black/60 backdrop-blur-[2px] transition-colors duration-200" />
+      </div>
+    );
+  }
+
   return (
-    <div className="absolute top-20 bottom-3 left-0 right-0 overflow-hidden bg-black">
+    <div className="absolute top-20 bottom-3 left-0 right-0 overflow-hidden bg-gray-800 dark:bg-gray-950 transition-colors duration-200">
       <motion.div 
-        className="grid grid-cols-8 gap-3 absolute inset-3 h-[calc(100%+1.5rem)]"
+        className="grid grid-cols-8 gap-4 absolute inset-3 h-[calc(100%+1.5rem)]"
         style={{ 
           width: '200%',
           gridTemplateRows: 'repeat(3, 1fr)',
           gridAutoRows: 0,
           gridAutoFlow: 'row dense'
         }}
-        animate={controls}
-        initial={{ x: 0 }}
+        animate={{ 
+          x: [0, '-50%']
+        }}
+        transition={{
+          duration: 180,
+          ease: "linear",
+          repeat: Infinity,
+          repeatType: "loop"
+        }}
       >
-        {firstHalfSlides.current.map((slide, index) => renderTile(slide, index, 'tile'))}
-        {secondHalfSlides.current.map((slide, index) => renderTile(slide, index, 'tile-second'))}
+        {slides.firstHalf.map((slide, index) => renderTile(slide, index, 'tile'))}
+        {slides.secondHalf.map((slide, index) => renderTile(slide, index, 'tile-second'))}
       </motion.div>
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]" />
+      <div className="absolute inset-0 bg-white/40 dark:bg-black/60 backdrop-blur-[2px] transition-colors duration-200" />
     </div>
   );
 } 

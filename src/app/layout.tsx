@@ -1,13 +1,11 @@
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import ClientLayout from '@/app/client-layout';
+import { metadata } from './metadata';
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "BuiltByBrax | Web Development Services",
-  description: "Professional web development services by Braxton Fails. Creating modern, responsive websites for businesses and individuals.",
-};
+export { metadata };
 
 export default function RootLayout({
   children,
@@ -15,11 +13,31 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={`${inter.className} bg-white dark:bg-gray-900 text-gray-900 dark:text-white`}>
-        <div className="min-h-screen">
-          {children}
-        </div>
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                let theme = localStorage.getItem('theme') || 'system';
+                let isDark = theme === 'dark';
+                
+                if (theme === 'system') {
+                  isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                }
+
+                document.documentElement.classList.remove('light', 'dark');
+                document.documentElement.classList.add(isDark ? 'dark' : 'light');
+              } catch (e) {
+                document.documentElement.classList.remove('light', 'dark');
+                document.documentElement.classList.add('light');
+              }
+            `,
+          }}
+        />
+      </head>
+      <body className={`${inter.className} min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200`}>
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );

@@ -3,13 +3,18 @@
 import { motion } from 'framer-motion';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import ImageSlideshow from '@/components/ImageSlideshow';
 
 export default function PortfolioPage() {
   const projects = [
     {
       title: 'Spray Foam Insulation',
       description: 'Modern website for a professional spray foam insulation company. Features include responsive design, performance optimization, and SEO implementation.',
-      image: '/portfolio/sprayfoam.png',
+      images: [
+        '/portfolio/sprayfoam/sprayfoam.png',
+        '/portfolio/sprayfoam/SprayFoamPhoto2.png', 
+        '/portfolio/sprayfoam/SprayFoamPhoto3.png'
+      ],
       tags: ['Next.js', 'TypeScript', 'Tailwind CSS'],
       link: 'https://sprayfoamsinsulation.com',
       external: true,
@@ -55,11 +60,19 @@ export default function PortfolioPage() {
                 >
                   <div className="grid md:grid-cols-2 gap-8">
                     <div className="relative h-[300px] md:h-full">
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="absolute inset-0 w-full h-full object-cover"
-                      />
+                      {project.images && project.images.length > 1 ? (
+                        <ImageSlideshow 
+                          images={project.images} 
+                          interval={3000}
+                          className="rounded-lg"
+                        />
+                      ) : (
+                        <img
+                          src={project.images[0]}
+                          alt={project.title}
+                          className="absolute inset-0 w-full h-full object-cover rounded-lg"
+                        />
+                      )}
                     </div>
                     <div className="p-8">
                       <h3 className="text-2xl font-bold text-white mb-4">
