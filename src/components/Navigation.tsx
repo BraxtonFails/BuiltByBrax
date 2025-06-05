@@ -8,6 +8,7 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 const Navigation = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
   const [activeItem, setActiveItem] = useState('');
 
   return (
@@ -48,7 +49,7 @@ const Navigation = () => {
                 </svg>
               </div>
               
-              {/* Dropdown Menu */}
+              {/* Services Dropdown Menu */}
               <div className="absolute left-0 mt-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 bg-[#020817] border border-gray-800 rounded-md shadow-lg">
                 <Link href="/services/web-design" className="block px-4 py-2.5 text-white hover:bg-gray-800 hover:text-[#0ea5e9] tracking-wide text-sm">
                   WEB DESIGN
@@ -65,9 +66,35 @@ const Navigation = () => {
             <Link href="/pricing" className="text-white hover:text-[#0ea5e9] font-medium tracking-wide">
               PRICING
             </Link>
-            <Link href="/about" className="text-white hover:text-[#0ea5e9] font-medium tracking-wide">
-              ABOUT
-            </Link>
+
+            {/* About Dropdown */}
+            <div className="relative group">
+              <div className="flex items-center space-x-1 cursor-pointer text-white hover:text-[#0ea5e9] py-4">
+                <span className="font-medium tracking-wide">ABOUT US</span>
+                <svg
+                  className="h-4 w-4 transition-transform duration-200 group-hover:rotate-180"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+              
+              {/* About Dropdown Menu */}
+              <div className="absolute left-0 mt-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 bg-[#020817] border border-gray-800 rounded-md shadow-lg">
+                <Link href="/about" className="block px-4 py-2.5 text-white hover:bg-gray-800 hover:text-[#0ea5e9] tracking-wide text-sm">
+                  ABOUT US
+                </Link>
+                <Link href="/faq" className="block px-4 py-2.5 text-white hover:bg-gray-800 hover:text-[#0ea5e9] tracking-wide text-sm">
+                  FAQ
+                </Link>
+                <Link href="/locations" className="block px-4 py-2.5 text-white hover:bg-gray-800 hover:text-[#0ea5e9] tracking-wide text-sm">
+                  LOCATIONS
+                </Link>
+              </div>
+            </div>
+
             <Link href="/contact" className="text-white hover:text-[#0ea5e9] font-medium tracking-wide">
               CONTACT
             </Link>
@@ -191,18 +218,80 @@ const Navigation = () => {
             >
               PRICING
             </Link>
-            <Link
-              href="/about"
-              className={`block px-3 py-2 transition-colors duration-200 ${
-                activeItem === 'about' ? 'text-[#0ea5e9] bg-gray-800' : 'text-white hover:bg-gray-800/50 hover:text-[#0ea5e9]'
-              } font-medium tracking-wide rounded-md`}
-              onClick={() => {
-                setActiveItem('about');
-                setTimeout(() => setMobileMenuOpen(false), 200);
-              }}
-            >
-              ABOUT
-            </Link>
+
+            {/* Mobile About Menu */}
+            <div>
+              <button
+                onClick={() => {
+                  setMobileAboutOpen(!mobileAboutOpen);
+                  setActiveItem(mobileAboutOpen ? '' : 'about');
+                }}
+                className={`flex items-center justify-between w-full px-3 py-2 transition-colors duration-200 ${
+                  activeItem === 'about' ? 'text-[#0ea5e9] bg-gray-800' : 'text-white hover:bg-gray-800/50 hover:text-[#0ea5e9]'
+                }`}
+              >
+                <span className="font-medium tracking-wide">ABOUT US</span>
+                <svg
+                  className={`h-4 w-4 transition-transform duration-200 ${mobileAboutOpen ? 'rotate-180' : ''}`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              
+              {mobileAboutOpen && (
+                <div className="pl-4 py-2 space-y-1">
+                  <Link 
+                    href="/about" 
+                    className={`block px-3 py-2 transition-colors duration-200 ${
+                      activeItem === 'about-us' ? 'text-[#0ea5e9] bg-gray-800' : 'text-white hover:bg-gray-800/50 hover:text-[#0ea5e9]'
+                    } tracking-wide text-sm rounded-md`}
+                    onClick={() => {
+                      setActiveItem('about-us');
+                      setTimeout(() => {
+                        setMobileMenuOpen(false);
+                        setMobileAboutOpen(false);
+                      }, 200);
+                    }}
+                  >
+                    ABOUT US
+                  </Link>
+                  <Link 
+                    href="/faq" 
+                    className={`block px-3 py-2 transition-colors duration-200 ${
+                      activeItem === 'faq' ? 'text-[#0ea5e9] bg-gray-800' : 'text-white hover:bg-gray-800/50 hover:text-[#0ea5e9]'
+                    } tracking-wide text-sm rounded-md`}
+                    onClick={() => {
+                      setActiveItem('faq');
+                      setTimeout(() => {
+                        setMobileMenuOpen(false);
+                        setMobileAboutOpen(false);
+                      }, 200);
+                    }}
+                  >
+                    FAQ
+                  </Link>
+                  <Link 
+                    href="/locations" 
+                    className={`block px-3 py-2 transition-colors duration-200 ${
+                      activeItem === 'locations' ? 'text-[#0ea5e9] bg-gray-800' : 'text-white hover:bg-gray-800/50 hover:text-[#0ea5e9]'
+                    } tracking-wide text-sm rounded-md`}
+                    onClick={() => {
+                      setActiveItem('locations');
+                      setTimeout(() => {
+                        setMobileMenuOpen(false);
+                        setMobileAboutOpen(false);
+                      }, 200);
+                    }}
+                  >
+                    LOCATIONS
+                  </Link>
+                </div>
+              )}
+            </div>
+
             <Link
               href="/contact"
               className={`block px-3 py-2 transition-colors duration-200 ${
