@@ -84,6 +84,7 @@ const Navigation = () => {
               key={item.name}
               href={item.href}
               className="block text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
+              onClick={() => setIsOpen(false)}
             >
               {item.name}
             </Link>

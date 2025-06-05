@@ -122,15 +122,16 @@ const isDuplicateTooClose = (
 // Generate shuffled slides with spacing constraint
 const generateShuffledSlides = (count: number): Slide[] => {
   const slides: Slide[] = [];
-  const minDistance = 3; // Minimum distance between duplicates
+  const minDistance = 3;
   
-  while (slides.length < 24) { // Target length
+  // For 3 rows × 8 columns = 24 total slots (12 per half)
+  while (slides.length < 12) {
     const shuffled = shuffleArray(baseSlides);
     
     for (const slide of shuffled) {
       if (!isDuplicateTooClose(slides, slides.length, slide, minDistance)) {
         slides.push(slide);
-        if (slides.length >= 24) break;
+        if (slides.length >= 12) break;
       }
     }
   }
@@ -147,9 +148,10 @@ export default function BackgroundSlideshow() {
 
   useEffect(() => {
     setIsClient(true);
+    // Each half gets 12 slides (3 rows × 4 columns)
     setSlides({
-      firstHalf: generateShuffledSlides(6),
-      secondHalf: generateShuffledSlides(6)
+      firstHalf: generateShuffledSlides(12),
+      secondHalf: generateShuffledSlides(12)
     });
   }, []);
 
@@ -161,23 +163,24 @@ export default function BackgroundSlideshow() {
       >
         {slide.type === 'image' ? (
           <>
-            <div className="relative w-full h-full min-h-[200px]">
+            <div className="relative w-full h-full min-h-[120px] md:min-h-[150px]">
               <Image
                 src={slide.image}
                 alt={`Slide ${index + 1}`}
                 fill
                 className="object-cover"
                 priority={index < 4}
+                loading={index < 4 ? 'eager' : 'lazy'}
                 onError={(e) => {
                   console.error('Error loading image:', slide.image);
                 }}
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                sizes="(max-width: 768px) 25vw, 12.5vw"
               />
             </div>
             <div className="absolute inset-0 bg-black/30" />
           </>
         ) : (
-          <div className="w-full h-full min-h-[200px] bg-gray-100 dark:bg-gray-900 flex items-center justify-center">
+          <div className="w-full h-full min-h-[120px] md:min-h-[150px] bg-gray-100 dark:bg-gray-900 flex items-center justify-center">
             {slide.icon}
           </div>
         )}
@@ -187,21 +190,21 @@ export default function BackgroundSlideshow() {
 
   if (!isClient) {
     return (
-      <div className="absolute top-20 bottom-3 left-0 right-0 overflow-hidden bg-white dark:bg-[#020817]">
+      <div className="absolute top-20 bottom-0 left-0 right-0 overflow-hidden bg-white dark:bg-[#020817]">
         <div className="absolute inset-0 bg-white/40 dark:bg-black/60 backdrop-blur-[2px]" />
       </div>
     );
   }
 
   return (
-    <div className="absolute top-20 bottom-3 left-0 right-0 overflow-hidden bg-white dark:bg-[#020817]">
+    <div className="absolute top-20 bottom-0 left-0 right-0 overflow-hidden bg-white dark:bg-[#020817]">
       <motion.div 
-        className="grid grid-cols-8 gap-4 absolute inset-3"
+        className="grid grid-cols-4 md:grid-cols-8 gap-3 absolute inset-6"
         style={{ 
           width: '200%',
-          gridTemplateRows: 'repeat(3, 1fr)',
+          gridTemplateRows: 'repeat(3, minmax(120px, 1fr))',
           gridAutoRows: 0,
-          gridAutoFlow: 'row dense'
+          gridAutoFlow: 'dense'
         }}
         animate={{ 
           x: [0, '-50%']
