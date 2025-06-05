@@ -1,31 +1,23 @@
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
-import { ThemeProvider } from '../context/ThemeContext'
+import { Inter } from 'next/font/google';
+import './globals.css';
 import { Analytics } from '@vercel/analytics/react';
-import Navigation from '../components/Navigation'
+import ClientLayout from './client-layout';
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] });
 
-export const metadata: Metadata = {
-  title: 'Built By Brax',
-  description: 'Custom Web Development for Small Businesses',
-}
+export { metadata } from './metadata';
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en" className="dark">
-      <body className={`${inter.className} bg-[#020817] text-white min-h-screen`}>
-        <ThemeProvider>
-          <Navigation />
-          {children}
-          <Analytics />
-        </ThemeProvider>
+      <body className={`${inter.className} min-h-screen bg-[#020817]`}>
+        <ClientLayout>{children}</ClientLayout>
+        <Analytics />
       </body>
     </html>
-  )
+  );
 }

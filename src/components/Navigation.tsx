@@ -3,94 +3,221 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
 const Navigation = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [rotateClockwise, setRotateClockwise] = useState(true);
-
-  const navItems = [
-    { name: 'Services', href: '/services' },
-    { name: 'Portfolio', href: '/portfolio' },
-    { name: 'Pricing', href: '/pricing' },
-    { name: 'About', href: '/about' },
-    { name: 'Contact', href: '/contact' },
-  ];
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const [activeItem, setActiveItem] = useState('');
 
   return (
-    <nav className="fixed w-full bg-white/90 dark:bg-[#020817]/90 backdrop-blur-sm z-50 border-b border-slate-200 dark:border-slate-800 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          <motion.div 
-            className="flex-shrink-0"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <Link href="/" className="flex items-center group">
-              <div className="relative w-8 h-8 overflow-hidden">
-                <Image
-                  src="/BuiltByBraxLogoNoTextNoBackground.PNG"
-                  alt="BuiltByBrax Logo"
-                  width={32}
-                  height={32}
-                  className="h-full w-full transition-all duration-500 group-hover:rotate-[360deg] group-hover:brightness-125"
-                />
-              </div>
-              <div className="ml-3">
-                <span className="text-lg font-semibold text-white">
-                  BuiltByBrax
-                </span>
-                <span className="block text-xs text-gray-400">Web Development</span>
-              </div>
+    <nav className="fixed w-full bg-[#020817] z-50 border-b border-gray-800">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="flex justify-between h-16">
+          {/* Logo */}
+          <div className="flex items-center">
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/BuiltByBraxLogoNoTextNoBackground.PNG"
+                alt="Logo"
+                width={32}
+                height={32}
+                className="h-8 w-8"
+              />
+              <span className="ml-2 text-white font-semibold">BuiltByBrax</span>
             </Link>
-          </motion.div>
+          </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 hover:shadow-[0_0_15px_rgba(59,130,246,0.5)] px-3 py-1 rounded-md"
-              >
-                {item.name}
-              </Link>
-            ))}
+          <div className="hidden md:flex md:items-center md:space-x-8">
+            <Link href="/portfolio" className="text-white hover:text-[#0ea5e9] font-medium tracking-wide">
+              PORTFOLIO
+            </Link>
+            
+            {/* Services Dropdown */}
+            <div className="relative group">
+              <div className="flex items-center space-x-1 cursor-pointer text-white hover:text-[#0ea5e9] py-4">
+                <span className="font-medium tracking-wide">SERVICES</span>
+                <svg
+                  className="h-4 w-4 transition-transform duration-200 group-hover:rotate-180"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+              
+              {/* Dropdown Menu */}
+              <div className="absolute left-0 mt-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 bg-[#020817] border border-gray-800 rounded-md shadow-lg">
+                <Link href="/services/web-design" className="block px-4 py-2.5 text-white hover:bg-gray-800 hover:text-[#0ea5e9] tracking-wide text-sm">
+                  WEB DESIGN
+                </Link>
+                <Link href="/services/seo" className="block px-4 py-2.5 text-white hover:bg-gray-800 hover:text-[#0ea5e9] tracking-wide text-sm">
+                  SEO
+                </Link>
+                <Link href="/services/google-ppc" className="block px-4 py-2.5 text-white hover:bg-gray-800 hover:text-[#0ea5e9] tracking-wide text-sm">
+                  GOOGLE PPC ADS
+                </Link>
+              </div>
+            </div>
+
+            <Link href="/pricing" className="text-white hover:text-[#0ea5e9] font-medium tracking-wide">
+              PRICING
+            </Link>
+            <Link href="/about" className="text-white hover:text-[#0ea5e9] font-medium tracking-wide">
+              ABOUT
+            </Link>
+            <Link href="/contact" className="text-white hover:text-[#0ea5e9] font-medium tracking-wide">
+              CONTACT
+            </Link>
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden">
             <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-300 hover:text-white transition-all duration-300 focus:outline-none"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 text-gray-300 hover:text-white"
             >
-              {isOpen ? (
-                <XMarkIcon className="block h-6 w-6" />
+              {mobileMenuOpen ? (
+                <XMarkIcon className="h-6 w-6" />
               ) : (
-                <Bars3Icon className="block h-6 w-6" />
+                <Bars3Icon className="h-6 w-6" />
               )}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Navigation */}
-      <div className={`md:hidden ${isOpen ? 'block' : 'hidden'}`}>
-        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-[#020817]/90 backdrop-blur-sm">
-          {navItems.map((item) => (
+      {/* Mobile menu */}
+      {mobileMenuOpen && (
+        <div className="md:hidden bg-[#020817] border-t border-gray-800">
+          <div className="px-2 pt-2 pb-3 space-y-1">
             <Link
-              key={item.name}
-              href={item.href}
-              className="block text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
-              onClick={() => setIsOpen(false)}
+              href="/portfolio"
+              className={`block px-3 py-2 transition-colors duration-200 ${
+                activeItem === 'portfolio' ? 'text-[#0ea5e9] bg-gray-800' : 'text-white hover:bg-gray-800/50 hover:text-[#0ea5e9]'
+              } font-medium tracking-wide rounded-md`}
+              onClick={() => {
+                setActiveItem('portfolio');
+                setTimeout(() => setMobileMenuOpen(false), 200);
+              }}
             >
-              {item.name}
+              PORTFOLIO
             </Link>
-          ))}
+
+            {/* Mobile Services Menu */}
+            <div>
+              <button
+                onClick={() => {
+                  setMobileServicesOpen(!mobileServicesOpen);
+                  setActiveItem(mobileServicesOpen ? '' : 'services');
+                }}
+                className={`flex items-center justify-between w-full px-3 py-2 transition-colors duration-200 ${
+                  activeItem === 'services' ? 'text-[#0ea5e9] bg-gray-800' : 'text-white hover:bg-gray-800/50 hover:text-[#0ea5e9]'
+                }`}
+              >
+                <span className="font-medium tracking-wide">SERVICES</span>
+                <svg
+                  className={`h-4 w-4 transition-transform duration-200 ${mobileServicesOpen ? 'rotate-180' : ''}`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              
+              {mobileServicesOpen && (
+                <div className="pl-4 py-2 space-y-1">
+                  <Link 
+                    href="/services/web-design" 
+                    className={`block px-3 py-2 transition-colors duration-200 ${
+                      activeItem === 'web-design' ? 'text-[#0ea5e9] bg-gray-800' : 'text-white hover:bg-gray-800/50 hover:text-[#0ea5e9]'
+                    } tracking-wide text-sm rounded-md`}
+                    onClick={() => {
+                      setActiveItem('web-design');
+                      setTimeout(() => {
+                        setMobileMenuOpen(false);
+                        setMobileServicesOpen(false);
+                      }, 200);
+                    }}
+                  >
+                    WEB DESIGN
+                  </Link>
+                  <Link 
+                    href="/services/seo" 
+                    className={`block px-3 py-2 transition-colors duration-200 ${
+                      activeItem === 'seo' ? 'text-[#0ea5e9] bg-gray-800' : 'text-white hover:bg-gray-800/50 hover:text-[#0ea5e9]'
+                    } tracking-wide text-sm rounded-md`}
+                    onClick={() => {
+                      setActiveItem('seo');
+                      setTimeout(() => {
+                        setMobileMenuOpen(false);
+                        setMobileServicesOpen(false);
+                      }, 200);
+                    }}
+                  >
+                    SEO
+                  </Link>
+                  <Link 
+                    href="/services/google-ppc" 
+                    className={`block px-3 py-2 transition-colors duration-200 ${
+                      activeItem === 'google-ppc' ? 'text-[#0ea5e9] bg-gray-800' : 'text-white hover:bg-gray-800/50 hover:text-[#0ea5e9]'
+                    } tracking-wide text-sm rounded-md`}
+                    onClick={() => {
+                      setActiveItem('google-ppc');
+                      setTimeout(() => {
+                        setMobileMenuOpen(false);
+                        setMobileServicesOpen(false);
+                      }, 200);
+                    }}
+                  >
+                    GOOGLE PPC ADS
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            <Link
+              href="/pricing"
+              className={`block px-3 py-2 transition-colors duration-200 ${
+                activeItem === 'pricing' ? 'text-[#0ea5e9] bg-gray-800' : 'text-white hover:bg-gray-800/50 hover:text-[#0ea5e9]'
+              } font-medium tracking-wide rounded-md`}
+              onClick={() => {
+                setActiveItem('pricing');
+                setTimeout(() => setMobileMenuOpen(false), 200);
+              }}
+            >
+              PRICING
+            </Link>
+            <Link
+              href="/about"
+              className={`block px-3 py-2 transition-colors duration-200 ${
+                activeItem === 'about' ? 'text-[#0ea5e9] bg-gray-800' : 'text-white hover:bg-gray-800/50 hover:text-[#0ea5e9]'
+              } font-medium tracking-wide rounded-md`}
+              onClick={() => {
+                setActiveItem('about');
+                setTimeout(() => setMobileMenuOpen(false), 200);
+              }}
+            >
+              ABOUT
+            </Link>
+            <Link
+              href="/contact"
+              className={`block px-3 py-2 transition-colors duration-200 ${
+                activeItem === 'contact' ? 'text-[#0ea5e9] bg-gray-800' : 'text-white hover:bg-gray-800/50 hover:text-[#0ea5e9]'
+              } font-medium tracking-wide rounded-md`}
+              onClick={() => {
+                setActiveItem('contact');
+                setTimeout(() => setMobileMenuOpen(false), 200);
+              }}
+            >
+              CONTACT
+            </Link>
+          </div>
         </div>
-      </div>
+      )}
     </nav>
   );
 };
