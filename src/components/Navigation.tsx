@@ -17,14 +17,16 @@ const Navigation = () => {
         <div className="flex justify-between h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <Link href="/" className="flex items-center">
-              <Image
-                src="/BuiltByBraxLogoNoTextNoBackground.PNG"
-                alt="Logo"
-                width={32}
-                height={32}
-                className="h-8 w-8"
-              />
+            <Link href="/" className="flex items-center group">
+              <div className="relative w-8 h-8 overflow-hidden">
+                <Image
+                  src="/BuiltByBraxLogoNoTextNoBackground.PNG"
+                  alt="Logo"
+                  width={32}
+                  height={32}
+                  className="h-full w-full transition-all duration-500 group-hover:rotate-[360deg] group-hover:brightness-125"
+                />
+              </div>
               <span className="ml-2 text-white font-semibold">BuiltByBrax</span>
             </Link>
           </div>
