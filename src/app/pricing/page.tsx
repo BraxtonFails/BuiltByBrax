@@ -8,67 +8,84 @@ import Footer from '@/components/Footer';
 export default function PricingPage() {
   const tiers = [
     {
-      name: "Basic Monthly",
-      price: "$75/mo",
-      description: "Essential website maintenance and support",
+      name: "Starter Site",
+      price: "$450",
+      subPrice: "one-time",
+      description: "For pop-up shops and small solo vendors",
       features: [
-        "$0 Down Payment",
-        "Custom Website Design",
-        "Basic Edits (2/mo)",
-        "Email Support",
-        "Hosting Included",
-        "Basic SEO",
-        "12-Month Minimum Contract"
+        "One-Time Price: $450",
+        "1-2 Page Website",
+        "Mobile Responsive Design",
+        "Hosting: 3 months included",
+        "Edits: 1 free in first 30 days",
+        "Contract: None",
+        "Optional Hosting: $10/mo after 3 months",
+        "Additional Edits: $40/hr"
+      ],
+      highlighted: false,
+      isStarter: true,
+    },
+    {
+      name: "Basic",
+      price: "$75/mo",
+      description: "For static sites with light updates",
+      features: [
+        "Monthly Price: $75",
+        "Hosting: Included",
+        "Edits: 2 per month",
+        "SEO: Basic",
+        "Support: Email",
+        "Contract: 12 months",
+        "Additional Edits: $40/hr"
       ],
       highlighted: false,
     },
     {
-      name: "Pro Monthly",
+      name: "Pro",
       price: "$150/mo",
-      description: "Perfect for businesses who want ongoing support",
+      description: "For growing businesses that need regular changes",
       features: [
-        "$0 Down Payment",
-        "Custom Website Design",
-        "Unlimited Edits",
-        "24/7 Support",
-        "Hosting Included",
-        "Google Business Profile Help",
-        "Analytics & Reports",
-        "Lifetime Updates",
-        "6-Month Minimum Contract"
+        "Monthly Price: $150",
+        "Hosting: Included",
+        "Edits: Unlimited",
+        "SEO: Advanced",
+        "Support: 24/7",
+        "Contract: 6 months",
+        "Priority Updates",
+        "Google Business Profile"
       ],
       highlighted: true,
+      isBestValue: true,
     },
     {
-      name: "Lump Sum",
-      price: "$3,000",
+      name: "One-Time",
+      price: "$1,450",
       subPrice: "+$25/mo hosting",
-      description: "Perfect for businesses who prefer a single payment",
+      description: "For those who prefer a single payment",
       features: [
-        "Custom Website Design",
-        "5-Page Website",
-        "Mobile Responsive",
-        "SEO Optimization",
-        "Contact Form",
-        "$25/mo Hosting",
-        "Edits at $40/hr",
-        "1-Hour Minimum for Edits",
-        "One-Time Payment"
+        "One-Time Price: $1,450",
+        "Hosting: $25/mo",
+        "Edits: $40/hr",
+        "SEO: Advanced",
+        "Support: Email",
+        "Contract: None",
+        "Minimum Edit: 1 hour",
+        "5-Page Website"
       ],
       highlighted: false,
     },
     {
-      name: "Custom Solution",
+      name: "Custom",
       price: "Custom",
-      description: "For projects with unique requirements",
+      description: "For advanced, unique builds",
       features: [
-        "Custom Feature Development",
-        "Advanced Functionality",
-        "Custom Integrations",
-        "Priority Support",
-        "Tailored Solutions",
-        "Project-Based Pricing",
-        "Flexible Timeline",
+        "Custom Pricing",
+        "Hosting: Included",
+        "Edits: Unlimited",
+        "SEO: Tailored",
+        "Support: Priority",
+        "Contract: Flexible",
+        "Custom Features",
         "Dedicated Support",
         "Personalized Strategy"
       ],
@@ -100,46 +117,57 @@ export default function PricingPage() {
         </section>
 
         {/* Pricing Grid */}
-        <section className="py-8">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <section className="py-12">
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
               {tiers.map((tier, index) => (
                 <motion.div
                   key={tier.name}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.2 }}
-                  className={`rounded-2xl p-8 ${
+                  className={`flex flex-col h-full rounded-2xl p-6 relative ${
                     tier.highlighted
-                      ? 'bg-[#112240] border-2 border-blue-500 transform scale-105'
+                      ? 'bg-[#112240] border-2 border-[#0ea5e9] transform scale-105'
+                      : tier.isStarter
+                      ? 'bg-[#1a2942] border-2 border-[#0ea5e9]'
                       : 'bg-[#1a2942] border border-gray-700'
                   } transition-all duration-200 hover:shadow-xl`}
                 >
-                  <div className="text-center">
+                  {tier.isBestValue && (
+                    <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-emerald-500 text-white px-3 py-1 rounded-full text-sm font-semibold whitespace-nowrap shadow-md z-10">
+                      Best Value
+                    </div>
+                  )}
+                  {tier.isStarter && (
+                    <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-[#0ea5e9] text-white px-3 py-1 rounded-full text-sm font-semibold whitespace-nowrap">
+                      Most Affordable
+                    </div>
+                  )}
+                  <div className="text-center mb-6">
                     <h3 className="text-2xl font-bold text-white mb-2">{tier.name}</h3>
-                    <p className="text-gray-300 mb-4">{tier.description}</p>
+                    <p className="text-gray-300 mb-4 text-sm">{tier.description}</p>
                     <div className="text-4xl font-bold text-white mb-2">{tier.price}</div>
                     {tier.subPrice && (
-                      <div className="text-sm text-gray-400 mb-8">{tier.subPrice}</div>
+                      <div className="text-sm text-gray-400">{tier.subPrice}</div>
                     )}
-                    {!tier.subPrice && <div className="mb-8" />}
                   </div>
 
-                  <ul className="space-y-4">
+                  <ul className="space-y-3 flex-grow">
                     {tier.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-center text-gray-300">
-                        <FaCheck className="text-green-400 mr-3 flex-shrink-0" />
+                      <li key={featureIndex} className="flex items-start text-gray-300 text-sm">
+                        <FaCheck className="text-[#0ea5e9] mr-3 mt-1 flex-shrink-0" />
                         <span>{feature}</span>
                       </li>
                     ))}
                   </ul>
 
-                  <div className="mt-8 text-center">
+                  <div className="mt-6 text-center">
                     <a
                       href="/contact"
-                      className={`inline-block px-8 py-3 rounded-full font-semibold transition-all duration-200 ${
-                        tier.highlighted
-                          ? 'bg-blue-500 text-white hover:bg-blue-600 transform hover:scale-105'
+                      className={`inline-block w-full px-6 py-3 rounded-full font-semibold transition-all duration-200 ${
+                        tier.highlighted || tier.isStarter
+                          ? 'bg-[#0ea5e9] text-white hover:bg-[#0284c7] transform hover:scale-105'
                           : 'bg-gray-700 text-white hover:bg-gray-600 transform hover:scale-105'
                       }`}
                     >
@@ -153,7 +181,7 @@ export default function PricingPage() {
         </section>
 
         {/* Custom Solution Section */}
-        <section className="pb-12">
+        <section className="py-12">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -166,7 +194,7 @@ export default function PricingPage() {
             </p>
             <a
               href="/contact"
-              className="inline-block px-8 py-3 bg-blue-500 text-white rounded-full font-semibold hover:bg-blue-600 transition-all duration-200 transform hover:scale-105"
+              className="inline-block px-8 py-3 bg-[#0ea5e9] text-white rounded-full font-semibold hover:bg-[#0284c7] transition-all duration-200 transform hover:scale-105"
             >
               Contact Us
             </a>
