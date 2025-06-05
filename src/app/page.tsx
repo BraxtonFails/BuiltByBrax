@@ -234,19 +234,19 @@ export default function Home() {
                 external: true
               },
               {
-                title: 'Project 2',
-                description: 'Coming Soon',
-                images: ['/portfolio/placeholder.png'],
-                tags: ['React', 'Node.js'],
-                link: '/portfolio',
+                title: 'Professional Contact Forms',
+                description: 'Specializing in creating modern, secure contact forms with email integration and spam protection.',
+                images: ['/ContactExample.png'],
+                tags: ['React', 'Node.js', 'Email Integration'],
+                link: '/contact',
                 external: false
               },
               {
-                title: 'Project 3',
-                description: 'Coming Soon',
-                images: ['/portfolio/placeholder.png'],
-                tags: ['Next.js', 'MongoDB'],
-                link: '/portfolio',
+                title: 'Google Ads Management',
+                description: 'Expert PPC campaign management to drive targeted traffic and maximize ROI for businesses.',
+                images: ['/googleads.png'],
+                tags: ['Google Ads', 'PPC', 'Analytics'],
+                link: '/services',
                 external: false
               }
             ].map((project, index) => (
