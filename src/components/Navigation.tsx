@@ -13,8 +13,8 @@ const Navigation = () => {
 
   return (
     <nav className="fixed w-full bg-[#020817] z-50 border-b border-gray-800">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="flex justify-between h-16">
+      <div className="max-w-7xl mx-auto px-0">
+        <div className="flex justify-between h-20">
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center group">
@@ -33,14 +33,14 @@ const Navigation = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex md:items-center md:space-x-8">
-            <Link href="/portfolio" className="text-white hover:text-[#0ea5e9] font-medium tracking-wide">
+            <Link href="/portfolio" className="text-white text-lg hover:text-[#0ea5e9] font-semibold tracking-wide hover:drop-shadow-[0_0_8px_white] transition-all duration-200">
               PORTFOLIO
             </Link>
             
             {/* Services Dropdown */}
             <div className="relative group">
-              <div className="flex items-center space-x-1 cursor-pointer text-white hover:text-[#0ea5e9] py-4">
-                <span className="font-medium tracking-wide">SERVICES</span>
+              <div className="flex items-center space-x-1 cursor-pointer text-white text-lg hover:text-[#0ea5e9] font-semibold py-4 tracking-wide hover:drop-shadow-[0_0_8px_white] transition-all duration-200">
+                <span>SERVICES</span>
                 <svg
                   className="h-4 w-4 transition-transform duration-200 group-hover:rotate-180"
                   fill="none"
@@ -53,26 +53,26 @@ const Navigation = () => {
               
               {/* Services Dropdown Menu */}
               <div className="absolute left-0 mt-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 bg-[#020817] border border-gray-800 rounded-md shadow-lg">
-                <Link href="/services/web-design" className="block px-4 py-2.5 text-white hover:bg-gray-800 hover:text-[#0ea5e9] tracking-wide text-sm">
+                <Link href="/services/web-design" className="block px-4 py-2.5 text-white text-base hover:bg-gray-800 hover:text-[#0ea5e9] tracking-wide hover:drop-shadow-[0_0_8px_white] transition-all duration-200">
                   WEB DESIGN
                 </Link>
-                <Link href="/services/seo" className="block px-4 py-2.5 text-white hover:bg-gray-800 hover:text-[#0ea5e9] tracking-wide text-sm">
+                <Link href="/services/seo" className="block px-4 py-2.5 text-white text-base hover:bg-gray-800 hover:text-[#0ea5e9] tracking-wide hover:drop-shadow-[0_0_8px_white] transition-all duration-200">
                   SEO
                 </Link>
-                <Link href="/services/google-ppc" className="block px-4 py-2.5 text-white hover:bg-gray-800 hover:text-[#0ea5e9] tracking-wide text-sm">
+                <Link href="/services/google-ppc" className="block px-4 py-2.5 text-white text-base hover:bg-gray-800 hover:text-[#0ea5e9] tracking-wide hover:drop-shadow-[0_0_8px_white] transition-all duration-200">
                   GOOGLE PPC ADS
                 </Link>
               </div>
             </div>
 
-            <Link href="/pricing" className="text-white hover:text-[#0ea5e9] font-medium tracking-wide">
+            <Link href="/pricing" className="text-white text-lg hover:text-[#0ea5e9] font-semibold tracking-wide hover:drop-shadow-[0_0_8px_white] transition-all duration-200">
               PRICING
             </Link>
 
             {/* About Dropdown */}
             <div className="relative group">
-              <div className="flex items-center space-x-1 cursor-pointer text-white hover:text-[#0ea5e9] py-4">
-                <span className="font-medium tracking-wide">ABOUT US</span>
+              <div className="flex items-center space-x-1 cursor-pointer text-white text-lg hover:text-[#0ea5e9] font-semibold py-4 tracking-wide hover:drop-shadow-[0_0_8px_white] transition-all duration-200">
+                <span>ABOUT US</span>
                 <svg
                   className="h-4 w-4 transition-transform duration-200 group-hover:rotate-180"
                   fill="none"
@@ -85,19 +85,19 @@ const Navigation = () => {
               
               {/* About Dropdown Menu */}
               <div className="absolute left-0 mt-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 bg-[#020817] border border-gray-800 rounded-md shadow-lg">
-                <Link href="/about" className="block px-4 py-2.5 text-white hover:bg-gray-800 hover:text-[#0ea5e9] tracking-wide text-sm">
+                <Link href="/about" className="block px-4 py-2.5 text-white text-base hover:bg-gray-800 hover:text-[#0ea5e9] tracking-wide hover:drop-shadow-[0_0_8px_white] transition-all duration-200">
                   ABOUT US
                 </Link>
-                <Link href="/faq" className="block px-4 py-2.5 text-white hover:bg-gray-800 hover:text-[#0ea5e9] tracking-wide text-sm">
+                <Link href="/faq" className="block px-4 py-2.5 text-white text-base hover:bg-gray-800 hover:text-[#0ea5e9] tracking-wide hover:drop-shadow-[0_0_8px_white] transition-all duration-200">
                   FAQ
                 </Link>
-                <Link href="/locations" className="block px-4 py-2.5 text-white hover:bg-gray-800 hover:text-[#0ea5e9] tracking-wide text-sm">
+                <Link href="/locations" className="block px-4 py-2.5 text-white text-base hover:bg-gray-800 hover:text-[#0ea5e9] tracking-wide hover:drop-shadow-[0_0_8px_white] transition-all duration-200">
                   LOCATIONS
                 </Link>
               </div>
             </div>
 
-            <Link href="/contact" className="text-white hover:text-[#0ea5e9] font-medium tracking-wide">
+            <Link href="/contact" className="text-white text-lg hover:text-[#0ea5e9] font-semibold tracking-wide hover:drop-shadow-[0_0_8px_white] transition-all duration-200">
               CONTACT
             </Link>
           </div>
