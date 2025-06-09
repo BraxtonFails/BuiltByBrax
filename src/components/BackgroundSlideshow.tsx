@@ -34,6 +34,10 @@ const baseSlides: Slide[] = [
     type: 'image'
   },
   {
+    image: '/4ManTreeServiceWebsite.png',
+    type: 'image'
+  },
+  {
     type: 'template',
     icon: (
       <svg className="w-8 h-8 text-gray-600 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">

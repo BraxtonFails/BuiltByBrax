@@ -234,19 +234,19 @@ export default function Home() {
                 external: true
               },
               {
-                title: 'Professional Contact Forms',
-                description: 'Specializing in creating modern, secure contact forms with email integration and spam protection.',
-                images: ['/ContactExample.png'],
-                tags: ['React', 'Node.js', 'Email Integration'],
-                link: '/contact',
-                external: false
+                title: '4Man Tree Services',
+                description: 'Professional website for 4Man Tree Service. Modern, responsive, and optimized for performance.',
+                images: ['/4ManTreeServiceWebsite.png'],
+                tags: ['Next.js', 'TypeScript', 'Tailwind CSS'],
+                link: 'https://4mantreeservices.com',
+                external: true
               },
               {
                 title: 'Google Ads Management',
                 description: 'Expert PPC campaign management to drive targeted traffic and maximize ROI for businesses.',
                 images: ['/googleads.png'],
                 tags: ['Google Ads', 'PPC', 'Analytics'],
-                link: '/services',
+                link: '/services/google-ppc',
                 external: false
               }
             ].map((project, index) => (

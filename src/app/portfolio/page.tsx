@@ -24,6 +24,22 @@ export default function PortfolioPage() {
         'Mobile-first responsive design',
         'SEO optimization with 100/100 PageSpeed score'
       ]
+    },
+    {
+      title: '4Man Tree Service Website',
+      description: 'Professional website for 4Man Tree Service. Features include a modern design, responsive layout, and optimized performance.',
+      images: [
+        '/4ManTreeServiceWebsite.png'
+      ],
+      tags: ['Next.js', 'TypeScript', 'Tailwind CSS'],
+      link: '#',
+      external: false,
+      details: [
+        'Responsive and modern design',
+        'Optimized for performance',
+        'Mobile-friendly layout',
+        'SEO best practices'
+      ]
     }
     // Add more projects here as they come
   ];
